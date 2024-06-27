@@ -1,0 +1,100 @@
+<BaseMDNavigationItem>:
+
+    MDNavigationItemIcon:
+        icon: root.icon
+
+    MDNavigationItemLabel:
+        text: root.text
+
+
+<BaseScreen>:
+
+    MDLabel:
+        text: root.name
+        halign: "center"
+
+<TopBar>:
+    type: "small"
+    md_bg_color: self.theme_cls.backgroundColor
+    MDTopAppBarLeadingButtonContainer:
+
+        MDActionTopAppBarButton:
+            icon: "menu"
+
+    MDTopAppBarTitle:
+        text: "AppBar Center-aligned"
+        pos_hint: {"center_x": .5}
+
+    MDTopAppBarTrailingButtonContainer:
+
+        MDActionTopAppBarButton:
+            icon: "account-circle-outline"
+
+
+<StudyScreen>:
+    name: "Flashcards"
+    md_bg_color: (0, 0, 0, 1)
+
+<MainScreen>:
+    name: "Study"
+    MDBoxLayout:
+        orientation: 'vertical'
+        # Top screen part
+        MDRelativeLayout:
+            size_hint_y: 0.25
+
+            MDLabel:
+                text: "Space for showing statistics"
+                halign: "center"
+        # Middle screen part
+        MDRelativeLayout:
+            size_hint_y: 0.6
+            md_bg_color: (0.5,0.5,0.5,1)
+        # Botton screen part
+        MDRelativeLayout:
+            size_hint_y: 0.15
+
+            MDButton:
+                style: "filled"
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                on_release: app.start_learning()
+
+                MDButtonText:
+                    text: "Learn"
+
+MDBoxLayout:
+    orientation: "vertical"
+    md_bg_color: self.theme_cls.backgroundColor
+
+    MDScreenManager:
+        id: screen_manager
+        # transition: MDNoTransition()
+
+        # CardScreen:
+
+        MainScreen:
+            id: screen_main
+
+        CardsListScreen:
+            id: screen_cardlist
+
+        StudyScreen:
+            id: screen_study
+        
+        CardScreen:
+            id: screen_card
+
+    MDNavigationBar:
+        on_switch_tabs: app.on_switch_tabs(*args)
+        id: navigation_bar
+
+        BaseMDNavigationItem:
+            icon: "school"
+            # text: "Learn"
+            text: screen_main.name 
+            active: True
+
+        BaseMDNavigationItem:
+            icon: "list-box-outline"
+            text: screen_cardlist.name      # ATTENTION
+            # text: "Cards"

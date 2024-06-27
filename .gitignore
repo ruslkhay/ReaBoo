@@ -2,7 +2,6 @@
 Literture/
 *draft*
 .vscode/
-JOTTING.md
 
 *.db
 !.*.db

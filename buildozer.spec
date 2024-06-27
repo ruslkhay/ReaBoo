@@ -10,7 +10,7 @@ package.name = reaboo
 package.domain = org.test
 
 # (str) Source code where the main.py live
-source.dir = .
+source.dir = App 
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas,sql,mo
@@ -22,34 +22,41 @@ source.include_exts = py,png,jpg,kv,atlas,sql,mo
 # source.exclude_exts = 
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-source.exclude_dirs = .venv, .vscode, .buildozer, source
+source.exclude_dirs = .venv, .vscode, .buildozer, source, drafts
 
 # (list) List of exclusions using pattern matching
 # Do not prefix with './'
 source.exclude_patterns = Database/test*.py, dodo.py
 
 # (str) Application versioning (method 1)
-version = 1.2
+# version = 1.2
 
 # (str) Application versioning (method 2)
-# version.regex = __version__ = ['"](.*)['"]
-# version.filename = %(source.dir)s/main.py
+version.regex = __version__ = ['"](.*)['"]
+version.filename = %(source.dir)s/main.py
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,kivymd
-
+requirements = python3,
+    kivy,
+    https://github.com/kivymd/KivyMD/archive/master.zip,
+    materialyoucolor,
+    exceptiongroup,
+    asyncgui,
+    asynckivy
+    
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
-# requirements.source.kivy = ../../kivy
+# requirements.source.kivy = ../../kivy 
+# requirements.source.kivymd = .venv/lib64/python3.12/site-packages/kivymd
 
 # (str) Presplash of the application
 # presplash.filename = %(source.dir)s/data/presplash.png
-presplash.filename = source/_static/icon_presplash_2048.png
+presplash.filename = %(source.dir)s/data/icon_presplash_2048.png
 
 # (str) Icon of the application
 # icon.filename = %(source.dir)s/data/icon.png
-icon.filename = source/_static/icon_512.png
+icon.filename = %(source.dir)s/data/icon_512.png
 
 # (list) Supported orientations
 # Valid options are: landscape, portrait, portrait-reverse or landscape-reverse
@@ -69,7 +76,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 1.9.1
+osx.kivy_version = 2.3.0
 
 #
 # Android specific
@@ -83,6 +90,7 @@ fullscreen = 0
 # red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
 # darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
 # olive, purple, silver, teal.
+android.presplash_color = #FFFFFF
 android.presplash_color = #FFFFFF
 
 # (string) Presplash animation using Lottie format.
@@ -104,8 +112,10 @@ android.presplash_color = #FFFFFF
 
 # (int) Target Android API, should be as high as possible.
 # android.api = 33
+# android.api = 33
 
 # (int) Minimum API your APK / AAB will support.
+# android.minapi = 28
 # android.minapi = 28
 
 # (int) Android SDK version to use
@@ -208,6 +218,7 @@ android.presplash_color = #FFFFFF
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
 # android.enable_androidx requires android.api >= 28
+android.enable_androidx = True
 android.enable_androidx = True
 
 # (list) add java compile options

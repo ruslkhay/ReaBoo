@@ -1,0 +1,163 @@
+
+<DictionaryScreen>:
+    name: "Dict"
+    md_bg_color: self.theme_cls.backgroundColor
+
+    MDScrollView:
+        do_scroll_x: False
+        MDBoxLayout:
+            id: container 
+            orientation: "vertical"
+            adaptive_height: True
+
+<CardsListScreen>:
+    name: "Cards"
+    md_bg_color: self.theme_cls.backgroundColor
+
+
+    MDScrollView:
+        do_scroll_x: False
+        MDBoxLayout:
+            id: container 
+            orientation: "vertical"
+            adaptive_height: True
+    MDAnchorLayout:
+        anchor_y: "bottom"
+        MDBoxLayout:
+            # md_bg_color: (0,0,0,1)
+            size_hint_y: 0.15
+            MDAnchorLayout:
+                anchor_x: "right"
+                # padding:20
+                MDTextField:
+                    mode: "filled"
+                    pos_hint: {'center_x': 0.5,'center_y': 0.075}
+                    size_hint_x: 0.9
+                    MDTextFieldLeadingIcon:
+                        icon: "text-search-variant"
+                    MDTextFieldHintText:
+                        text: "Field with leading icon"
+
+            MDAnchorLayout:
+                size_hint_x: 0.2
+                MDIconButton:
+                    style: "filled"
+                    pos_hint: {'center_x': 0.5,'center_y': 0.075}
+                    
+                    on_release: 
+                        root.open_item()
+                        # root.add_item()
+                    icon: "plus"
+
+
+<CardListItem>:
+    id: root.card_id
+    MDListItemLeadingAvatar:
+        source: root.image
+        # on_release: print(root.image)
+    MDListItemHeadlineText:
+        text: root.word
+    MDListItemSupportingText:
+        text: root.meaning
+     
+<CardScreen>:
+    name: "Card"
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        padding:10
+        MDIconButton:
+            icon: 'close-thick'
+            on_release: root.close()
+    BoxLayout:
+        orientation: "vertical"
+        # Placeholder for image
+        MDAnchorLayout: 
+            # md_bg_color: (0.5,0,0,0.5)
+            size_hint_y: 0.25
+            anchor_x: "center"
+            anchor_y: "center"
+            padding: 10
+            MDCard:
+                # background:"data/fill_image_placeholder.png" 
+                background: root.image
+                size_hint_x: None 
+                width: self.height
+                on_release: print(root.image)
+                # size: "200dp", "200dp"
+        # Placeholder for textfields
+        MDBoxLayout:
+            size_hint_y: 0.6
+            orientation: "vertical"
+            # md_bg_color: (0,0.5,0,.5)
+            MDBoxLayout:
+                orientation: "vertical"
+                AnchorLayout:
+                    anchor_x: "center"
+                    anchor_y: "center"
+                    MDTextField:
+                        id: word
+                        size_hint_x: 0.7
+                        mode: "outlined"
+                        text: root.word
+                        on_text: root.word = self.text
+                        MDTextFieldHintText:
+                            text: "Word"  
+                        # MDTextFieldHelperText:
+                        #     text: "Type ..."  #app._("Type a new word")
+                AnchorLayout:
+                    anchor_x: "center"
+                    anchor_y: "center"
+                    MDTextField:
+                        id: transition 
+                        size_hint_x: 0.7
+                        mode: "outlined"
+                        text: root.meaning
+                        on_text: root.meaning = self.text
+                        MDTextFieldHintText:
+                            text: "Meaning"  
+                        # MDTextFieldHelperText:
+                        #     text: "Type ..."  #app._("Type a new word")
+            AnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                MDTextField:
+                    id: example 
+                    size_hint_x: 0.7
+                    mode: "outlined"
+                    height: self.parent.height
+                    text: root.example
+                    on_text: root.example = self.text
+                    MDTextFieldMaxLengthText:
+                        max_text_length: 512 # + self.font_size
+
+                    # max_height: self.parent.height  - 40
+                    # multiline: True
+                    MDTextFieldHintText:
+                        text: "Example" # + str(self.font_size) 
+                    MDTextFieldHelperText:
+                        text: "Type ..."  #app._("Type a new word")
+        # Placeholder for controll buttons
+        MDBoxLayout:
+            # id: buttons
+            size_hint_y: 0.15
+            # md_bg_color: (0,0,0.5,1)
+            MDAnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                MDButton:
+                    id: button_delete
+                    style: "filled"
+                    on_release: root.delete()
+                    MDButtonText:
+                        text: "Delete"
+
+            MDAnchorLayout:
+                anchor_x: "center"
+                anchor_y: "center"
+                MDButton:
+                    style: "filled"
+                    on_release: root.save()
+
+                    MDButtonText:
+                        text: "Save"
